@@ -1,1 +1,2 @@
-# Ca-ka-podw-jna-po-tr-jk-cie.
+# Całka podwójna po trojkacie.
+Całka Gaussa na trzech punktach.
