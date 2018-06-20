@@ -56,31 +56,37 @@ double Jakobian (Point a, Point b, Point c)
   return (b.x - a.x) *(c.y - a.y) - (c.x - a.x) * (b.y - a.y);
 }
 /* Funkcja podcałkowa dla trójkąta znormalizowange. */
-Point F(double J, Point normP)
+/* x + 3y - 1 */
+double F(double J, Point normP)
 {
-  return Point
+  /*return Point
   {
     J * normP.x,
     J * normP.y
   };
+  */
+  return J* (normP.x+3*normP.y-1);
 }
 
 void printPoints(Point *points, string label)
-{
-  for(int i = 0; i < sizeof(points) / sizeof(points[0])+1; i++)
+{ 
+  cout <<label << endl;
+  for(int i = 0; i < 3; i++)
   {
-  cout << "Point " << i+1 << label << endl;
-  cout << points[i].x << "; ";
-  cout << points[i].y << endl;
+  cout << "Point " << i+1 << ": (";
+  cout << points[i].x << ", ";
+  cout << points[i].y << ")" << endl;
   }
 }
 int main() {
-  Point a = {1,1}; Point b = {1,2}; Point c = {2,1};
+  Point a = {1,1}; Point b = {3,2}; Point c = {2,3};
   
   Point *norA = NormalizeTriangle(a, b, c);
-  
+  printPoints(norA, "Normalizacja");
   
   double J = Jakobian(a, b, c);
+  cout << "Jakobian: " << J << endl;
+  
   Point *pointsF =new Point[3] {
   	{0, 0},
   	{0, 0},
@@ -89,6 +95,14 @@ int main() {
    pointsF[0] = F(J, norA[0]);
    pointsF[1] = F(J, norA[1]);
    pointsF[2] = F(J, norA[2]);
+   printPoints(pointsF, "Zastosowana funkcja podcałkowa");
   
+   obliczanie całki podówjnej
+   double = dbIntegral;
+   for(int i = 0; i < 3; i++)
+   {
+     dbIntegral += pointsF[i]*w[i];
+   }
+   cout<<"Wynik: " << dbIntegral << "."<< endl;
   return 0;
 }
