@@ -79,9 +79,10 @@ void printPoints(Point *points, string label)
   cout << points[i].y << ")" << endl;
   }
 }
-int main() {
-  Point a = {1,1}; Point b = {3,2}; Point c = {2,3};
-  
+
+void calculateIntegralSeq(Point a, Point b, Point c)
+{
+  printPoints(new Point[3]{a, b, c}, "Przed normalizacją");
   Point *norA = NormalizeTriangle(a, b, c);
   printPoints(norA, "Normalizacja");
   
@@ -92,7 +93,7 @@ int main() {
    FResult[0] = F(J, norA[0]);
    FResult[1] = F(J, norA[1]);
    FResult[2] = F(J, norA[2]);
-   cout << "Zastosowana funkcja podcałkowa: " << endl;
+   cout << "Zastosowana funkcji podcałkowej: " << endl;
    cout << FResult[0] << " " << FResult[1] << " " << FResult[2] << endl;
   
    /* obliczanie całki podówjnej */
@@ -102,6 +103,29 @@ int main() {
      dbIntegral += FResult[i]*w[i];
    }
    dbIntegral = dbIntegral/2.;
-   cout<<"Wynik: " << dbIntegral << "."<< endl;
+   cout<<"Wynik: " << dbIntegral << "."<< endl;	
+}
+
+int main() {
+  //Przyklad testowy:
+  Point a = {1,1}; Point b = {3,2}; Point c = {2,3}; Point d = {3,1};
+  /*Wczytywanie wejścia */
+  cout<<"Podaj 4 punkty w taki sposób, że wsółrzędne x,y oddziel spacją i nacisnije enter.";
+  cout<<"Punkt A:";
+  cin>>a.x>>a.y;
+  cout<<"Punkt B:";
+  cin>>b.x>>b.y;
+  cout<<"Punkt C:";
+  cin>>c.x>>c.y;
+  cout<<"Punkt D:";
+  cin>>d.x>>d.y;
+  
+  //Można zmienić kolejnośc jeśli ma znaczenie(?).
+  cout<<endl<< "========================================"<<endl;
+  cout<<"Trójkąt: ABC" <<endl;
+  calculateIntegralSeq(a, b, c);
+  cout<<endl<< "========================================"<<endl;
+  cout<<"Trójkąt: CDA" <<endl;
+  calculateIntegralSeq(c, d, a);
   return 0;
 }
